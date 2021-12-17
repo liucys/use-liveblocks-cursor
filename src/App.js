@@ -15,7 +15,7 @@ const client = createClient({
 });
 
 function ConnectionInfo() {
-  const [myPresence, setMyPresence] = useMyPresence();
+  const [myPresence, updateMyPresence] = useMyPresence();
   const others = useOthers();
 
   useEffect(() => {
@@ -24,10 +24,10 @@ function ConnectionInfo() {
         x: e.clientX,
         y: e.clientY,
       };
-      setMyPresence({ cursor });
+      updateMyPresence({ cursor });
     };
     const handlePointerLeave = () => {
-      setMyPresence({ cursor: null });
+      updateMyPresence({ cursor: null });
     };
     document.body.addEventListener("pointermove", handlePinterMove, false);
     document.body.addEventListener("pointerleave", handlePointerLeave, false);
