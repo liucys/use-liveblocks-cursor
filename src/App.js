@@ -78,7 +78,9 @@ function App() {
       >
         <div className="App">
           <header className="App-header">
-            <div>Multi-player mouse</div>
+            <div>
+              <h3>Liveblocks multiplayer mouse</h3>
+            </div>
             <ConnectionInfo />
           </header>
         </div>
