@@ -1,13 +1,13 @@
 import React from "react";
 
-export default function Cursor({ color, x, y }) {
+export default function OtherCursor({ color, x, y }) {
   return (
     <svg
       style={{
         position: "absolute",
         left: 0,
         top: 0,
-        transition: "transform 0.5s cubic-bezier(.17,.93,.38,1)",
+        transition: "transform 0.1ms linear",
         transform: `translateX(${x}px) translateY(${y}px)`,
       }}
       width="24"

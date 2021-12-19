@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Colors } from "./utils";
-import Cursor from "./Cursor";
+import OtherCursor from "./OtherCursor";
+import MyCursor from "./MyCursor";
 import { createClient } from "@liveblocks/client";
 import {
   LiveblocksProvider,
@@ -21,8 +22,8 @@ function ConnectionInfo() {
   useEffect(() => {
     const handlePinterMove = (e) => {
       const cursor = {
-        x: e.clientX,
-        y: e.clientY,
+        x: Math.round(e.clientX),
+        y: Math.round(e.clientY),
       };
       updateMyPresence({ cursor });
     };
@@ -31,28 +32,32 @@ function ConnectionInfo() {
     };
     document.body.addEventListener("pointermove", handlePinterMove, false);
     document.body.addEventListener("pointerleave", handlePointerLeave, false);
-  }, []);
+  }, []); // eslint-disable-line
 
   return (
     <>
-      {myPresence && myPresence.cursor && (
-        <Cursor
-          x={myPresence.cursor.x}
-          y={myPresence.cursor.y}
-          color={Colors[0]}
-        />
-      )}
       {others.count === 0
         ? "You’re the only one here."
         : others.count === 1
         ? "There is one other person here."
         : `There are ${others.count}  other people here.`}
+
+      {/* my cursor */}
+      {myPresence && myPresence.cursor && (
+        <MyCursor
+          x={myPresence.cursor.x}
+          y={myPresence.cursor.y}
+          color={Colors[0]}
+        />
+      )}
+
+      {/* other users cursor */}
       {others.map(({ connectionId, presence }) => {
         if (presence == null || presence.cursor == null) {
           return null;
         }
         return (
-          <Cursor
+          <OtherCursor
             key={connectionId}
             x={presence.cursor.x}
             y={presence.cursor.y}
